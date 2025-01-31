@@ -17,7 +17,7 @@ const EmbedCodePage = () => {
   }, []);
 
   const iframeCode = (user: any) => `
-        <iframe id="${user.id}" src="http://localhost:3000/chatbot" 
+        <iframe id="${user.id}" src="https://talkbot-ai-new.vercel.app/chatbot" 
           width="100%" height="100%" 
           style="border: none; position: fixed; bottom: 20px; right: 20px; z-index: 9999;"
         ></iframe>

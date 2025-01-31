@@ -71,7 +71,7 @@ const DashboardPage = () => {
 
   // Generate embed code
   const embedCode = (user: User | null) => `<script
-  src="http://localhost:3000/chatbot-widget.js"
+  src="https://talkbot-ai-new.vercel.app/chatbot-widget.js"
   data-chatbot-id="${user?.id}"
   data-company-name="${user?.user_metadata?.company_name}"
   data-company-description="${user?.user_metadata?.company_description}"> 

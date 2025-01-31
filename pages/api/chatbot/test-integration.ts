@@ -35,7 +35,7 @@ export default async function handler(
 ) {
   let {
     url,
-    scriptSrc = "http://localhost:3000/chatbot-widget.js",
+    scriptSrc = "https://talkbot-ai-new.vercel.app/chatbot-widget.js",
     chatbotId,
   } = req.body;
 

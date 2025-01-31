@@ -72,8 +72,6 @@ const AuthPage = () => {
         data: null,
       }));
 
-    console.log(error, _data);
-
     if (error) {
       toast({
         title: "Login Failed",
@@ -129,7 +127,7 @@ const AuthPage = () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "http://localhost:3000/setup-organization",
+        redirectTo: "https://talkbot-ai-new.vercel.app/setup-organization",
       },
     });
     if (error) {
