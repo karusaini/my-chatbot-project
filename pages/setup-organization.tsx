@@ -80,7 +80,7 @@ const CompanyFormPage = () => {
       }
 
       setLoading(false);
-    }, 3000); // 5-second delay
+    }, 7000); // 7-second delay
   };
 
   return (
