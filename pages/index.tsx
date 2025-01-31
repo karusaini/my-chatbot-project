@@ -53,7 +53,7 @@ export default function Home() {
         </div>
 
         {/* Hero Image */}
-        <div className="flex justify-center">
+        <div className="flex justify-center ">
           <Image
             src="/chatbot.jpg"
             alt="AI Chatbot Illustration"
