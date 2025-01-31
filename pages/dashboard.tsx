@@ -107,7 +107,7 @@ const DashboardPage = () => {
   if (!userMetadata) return <div>Loading...</div>;
 
   return (
-    <div className="flex min-h-screen justify-center items-center bg-gray-50 px-10 sm:px-6  ">
+    <div className="flex min-h-screen justify-center items-center bg-gray-50 px-6 sm:px-6  ">
       {/* Confetti Fullscreen with z-index styling */}
       {checkResult == true &&
         windowDimensions.width &&
