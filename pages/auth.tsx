@@ -147,7 +147,7 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen justify-center items-center bg-gray-50 px-10 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen justify-center items-center bg-gray-50 px-6 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md p-6 shadow-md">
         <CardContent>
           <Tabs
