@@ -17,6 +17,8 @@ import { User } from "@supabase/supabase-js";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
+import Confetti from "react-confetti"; // Import Confetti
+import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa"; // Social media icons
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -28,6 +30,11 @@ const DashboardPage = () => {
   const [isCopied, setIsCopied] = useState(false);
   const [loading, setLoading] = useState(false); // Loading state for checking integration
   const [checkResult, setCheckResult] = useState<null | boolean>(null); // To store check result
+  const [confettiTriggered, setConfettiTriggered] = useState(false); // To control confetti trigger
+  const [windowDimensions, setWindowDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
 
   // Fetch user metadata on load
   useEffect(() => {
@@ -47,21 +54,27 @@ const DashboardPage = () => {
   }, [router]);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWindowDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+  }, []); // Runs only once, on the client side
+
+  useEffect(() => {
     if (!openTestDialog) {
       setLoading(false);
       setCheckResult(null);
     }
   }, [openTestDialog]);
 
-  if (!userMetadata) return <div>Loading...</div>;
-
   // Generate embed code
   const embedCode = (user: User | null) => `<script
   src="http://localhost:3000/chatbot-widget.js"
   data-chatbot-id="${user?.id}"
   data-company-name="${user?.user_metadata?.company_name}"
-  data-company-description="${user?.user_metadata?.company_description}"
-  >
+  data-company-description="${user?.user_metadata?.company_description}"> 
 </script>
 `;
 
@@ -85,11 +98,35 @@ const DashboardPage = () => {
     });
     setCheckResult(result.data?.success);
     setLoading(false);
+
+    if (result.data?.success) {
+      setConfettiTriggered(true); // Trigger the confetti effect once
+    }
   };
+
+  if (!userMetadata) return <div>Loading...</div>;
 
   return (
     <div className="flex min-h-screen justify-center items-center bg-gray-50">
-      <Card className="w-full max-w-md p-3 sm:p-6 shadow-md">
+      {/* Confetti Fullscreen with z-index styling */}
+      {checkResult == true &&
+        windowDimensions.width &&
+        windowDimensions.height && (
+          <Confetti
+            width={windowDimensions.width}
+            height={windowDimensions.height}
+            numberOfPieces={700} // Limit to 100 pieces
+            recycle={false} // Make it show only once
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              zIndex: 9999, // Ensure it's above other elements
+            }}
+          />
+        )}
+
+      <Card className="w-full max-w-md p-3 sm:p-6 shadow-md relative z-10">
         <CardContent>
           <h1 className="text-2xl font-semibold mb-4">
             Hey {userMetadata.name}!
@@ -120,19 +157,12 @@ const DashboardPage = () => {
 
           {/* Action Buttons */}
           <div className="space-y-4">
-            <Button
-              className="w-full"
-              variant="outline"
-              onClick={() =>
-                toast({
-                  title: "Chatbot Tested",
-                  description: "Chatbot test was successful",
-                  variant: "default",
-                })
-              }
-            >
-              Test Chatbot
-            </Button>
+            {/* Test Chatbot Button as a Link */}
+            <Link href={userMetadata.company_url} target="_blank" passHref>
+              <Button className="w-full" variant="outline">
+                Test Chatbot
+              </Button>
+            </Link>
 
             <Dialog
               open={openIntegrateDialog}
@@ -202,6 +232,53 @@ const DashboardPage = () => {
                       Integration is detected successfully!
                     </p>
                     <p>Your chatbot is now live on your site. Enjoy!</p>
+                    {/* New Buttons after Successful Integration */}
+                    <div className=" flex gap-4 space-4 mt-4">
+                      <Link href="/admin" passHref>
+                        <Button className="w-fit">Explore Admin Panel</Button>
+                      </Link>
+                      <Link
+                        href={userMetadata.company_url}
+                        target="_blank"
+                        passHref
+                      >
+                        <Button variant="outline" className=" w-fit">
+                          Start talking to your chatbot
+                        </Button>
+                      </Link>
+                    </div>
+
+                    {/* Social Media Icons inside Success View */}
+                    <div className="mt-6 flex space-x-4 justify-start">
+                      <a
+                        href="https://facebook.com"
+                        target="_blank"
+                        className="text-blue-600"
+                      >
+                        <FaFacebook size={24} />
+                      </a>
+                      <a
+                        href="https://twitter.com"
+                        target="_blank"
+                        className="text-blue-400"
+                      >
+                        <FaTwitter size={24} />
+                      </a>
+                      <a
+                        href="https://linkedin.com"
+                        target="_blank"
+                        className="text-blue-700"
+                      >
+                        <FaLinkedin size={24} />
+                      </a>
+                      <a
+                        href="https://instagram.com"
+                        target="_blank"
+                        className="text-pink-600"
+                      >
+                        <FaInstagram size={24} />
+                      </a>
+                    </div>
                   </div>
                 ) : (
                   <div>
