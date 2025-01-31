@@ -15,6 +15,8 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
+import Link from "next/link";
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -45,17 +47,6 @@ const DashboardPage = () => {
   }, [router]);
 
   if (!userMetadata) return <div>Loading...</div>;
-
-  // Sign out handler
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    toast({
-      title: "Signed Out",
-      description: "You have successfully signed out.",
-      variant: "default",
-    });
-    router.push("/auth"); // Redirect to the auth page after sign-out
-  };
 
   // Generate embed code
   const embedCode = (user: User | null) => `<script
@@ -89,7 +80,7 @@ const DashboardPage = () => {
 
   return (
     <div className="flex min-h-screen justify-center items-center bg-gray-50">
-      <Card className="w-full max-w-md p-6 shadow-md">
+      <Card className="w-full max-w-md p-3 sm:p-6 shadow-md">
         <CardContent>
           <h1 className="text-2xl font-semibold mb-4">
             Hey {userMetadata.name}!
@@ -190,7 +181,7 @@ const DashboardPage = () => {
 
                 {loading ? (
                   <div className="flex justify-center items-center">
-                    <div className="animate-spin border-4 border-t-4 border-blue-500 w-10 h-10 rounded-full"></div>
+                    <Loader2 className="animate-spin mr-2" />
                   </div>
                 ) : checkResult === null ? (
                   <p>
@@ -233,13 +224,11 @@ const DashboardPage = () => {
               </DialogContent>
             </Dialog>
 
-            <Button
-              variant="destructive"
-              className="ml-32"
-              onClick={handleSignOut}
-            >
-              Sign Out
-            </Button>
+            <Link href="/sign-out">
+              <Button variant="destructive" className="ml-32">
+                Sign Out
+              </Button>
+            </Link>
           </div>
         </CardContent>
       </Card>

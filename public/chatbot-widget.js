@@ -6,6 +6,9 @@
     scriptTag.getAttribute("data-chatbot-id") || "default-chatbot";
   const companyName =
     scriptTag.getAttribute("data-company-name") || "Your Company";
+  const companyDescription =
+    scriptTag.getAttribute("data-company-description") ||
+    "We are here to assist you.";
 
   // Create feedback banner
   const banner = document.createElement("div");
@@ -15,6 +18,7 @@
             top: 0;
             left: 0;
             width: 100%;
+            line-height: 28px;
             background-color: #0078ff;
             color: white;
             text-align: center;
@@ -76,7 +80,7 @@
             bottom: 80px;
             right: 20px;
             width: 350px;
-            max-height: 400px;
+            max-height: 460px;
             background-color: white;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
@@ -87,6 +91,7 @@
             overflow-x: hidden;
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
+            transition: all 0.3s ease;
           `;
 
   chatbotWindow.innerHTML = `
@@ -100,8 +105,9 @@
                 color: #888;
               ">&times;</button>
             </div>
+            <p style="color: #666; font-size: 14px; margin-top: 8px;">${companyDescription}</p>
             <hr style="border: none; border-top: 1px solid #eee; margin: 10px 0;">
-            <div id="chat-content" style="margin-top: 10px;">
+            <div id="chat-content" style="margin-top: 10px; max-height: 300px; overflow-y: auto; display: flex; flex-direction: column;">
               <p style="color: #444;">Hi there! How can we assist you today?</p>
             </div>
             <input type="text" id="user-message"
@@ -118,6 +124,14 @@
 
   // Chatbot Button Click Handler
   chatbotButton.addEventListener("click", () => {
+    // Fullscreen chat on mobile
+    if (window.innerWidth < 768) {
+      chatbotWindow.style.width = "100%";
+      chatbotWindow.style.height = "100%";
+      chatbotWindow.style.bottom = "0";
+      chatbotWindow.style.right = "0";
+      chatbotWindow.style.borderRadius = "0";
+    }
     chatbotWindow.style.display =
       chatbotWindow.style.display === "none" ? "block" : "none";
   });
@@ -128,8 +142,17 @@
     if (e.key === "Enter" && userMessageInput.value.trim()) {
       const message = userMessageInput.value.trim();
       const chatContent = chatbotWindow.querySelector("#chat-content");
-      const userMessageElement = document.createElement("p");
-      userMessageElement.style.cssText = "text-align: right; color: #0078ff;";
+      const userMessageElement = document.createElement("div");
+      userMessageElement.style.cssText = `
+                text-align: right;
+                background-color: #0078ff;
+                color: white;
+                border-radius: 12px;
+                padding: 8px 12px;
+                margin: 4px 0;
+                max-width: fit-content;
+                align-self: flex-end;
+              `;
       userMessageElement.textContent = message;
 
       chatContent.appendChild(userMessageElement);
@@ -137,8 +160,17 @@
 
       // Simulate chatbot response
       setTimeout(() => {
-        const botMessageElement = document.createElement("p");
-        botMessageElement.style.cssText = "color: #444;";
+        const botMessageElement = document.createElement("div");
+        botMessageElement.style.cssText = `
+                  text-align: left;
+                  background-color: #f1f1f1;
+                  color: #444;
+                  border-radius: 12px;
+                  padding: 8px 12px;
+                  margin: 4px 0;
+                  max-width: 80%;
+                  align-self: flex-start;
+                `;
         botMessageElement.textContent = "Thank you for your message!";
         chatContent.appendChild(botMessageElement);
       }, 1000);
