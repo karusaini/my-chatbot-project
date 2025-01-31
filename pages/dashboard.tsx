@@ -311,7 +311,7 @@ const DashboardPage = () => {
             </Dialog>
 
             <Link href="/sign-out">
-              <Button variant="destructive" className="ml-32 mt-4">
+              <Button variant="destructive" className="ml-32 mt-4 sm:mr-2">
                 Sign Out
               </Button>
             </Link>
