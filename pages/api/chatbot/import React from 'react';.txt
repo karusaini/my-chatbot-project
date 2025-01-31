@@ -1,0 +1,12 @@
+import React from 'react';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+
+const App = () => {
+  return (
+    <DotLottieReact
+      src="https://lottie.host/09b42976-86fd-4e21-9dac-c52636ac563c/nQ3O2JoV6l.lottie"
+      loop
+      autoplay
+    />
+  );
+};
