@@ -9,13 +9,22 @@ export default function Home() {
       <div className="absolute inset-0 bg-white/40"></div>
 
       {/* Content Wrapper */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-7xl w-full p-8 bg-white/80 rounded-2xl shadow-2xl">
+      <div className="relative z-10 flex flex-col md:flex-row justify-center gap-12 items-center max-w-7xl w-full p-8 bg-white/80 rounded-2xl">
         {/* Text Content */}
-        <div className="flex flex-col items-center justify-center space-y-6">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 text-center">
+        <div className="flex flex-1 flex-col items-center justify-center space-y-6">
+          <h1 className="text-3xl font-extrabold text-gray-800 text-center">
             AI-Powered Chatbot Builder for Company Data
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 leading-relaxed text-center">
+          <div className="flex md:hidden justify-center ">
+            <Image
+              src="/chatbot.jpg"
+              alt="AI Chatbot Illustration"
+              width={400} // Medium size
+              height={250} // Adjust height proportionally
+              className="rounded-2xl  border-2 transform hover:scale-105 transition duration-500 ease-in-out"
+            />
+          </div>
+          <p className="text-md sm:text-sm text-gray-600 leading-relaxed text-center">
             Transform your company information and website content into an
             intelligent AI chatbot with our powerful platform. Simply provide
             your company details and webpage links, and let our system
@@ -53,13 +62,13 @@ export default function Home() {
         </div>
 
         {/* Hero Image */}
-        <div className="flex justify-center ">
+        <div className="hidden md:flex flex-1 justify-center ">
           <Image
             src="/chatbot.jpg"
             alt="AI Chatbot Illustration"
             width={400} // Medium size
             height={250} // Adjust height proportionally
-            className="rounded-2xl shadow-xl transform hover:scale-105 transition duration-500 ease-in-out"
+            className="rounded-2xl hover:shadow-xl transform hover:scale-105 transition duration-500 ease-in-out"
           />
         </div>
       </div>

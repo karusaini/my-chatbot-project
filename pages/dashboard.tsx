@@ -107,7 +107,7 @@ const DashboardPage = () => {
   if (!userMetadata) return <div>Loading...</div>;
 
   return (
-    <div className="flex min-h-screen justify-center items-center bg-gray-50 px-6 sm:px-6  ">
+    <div className="flex min-h-screen justify-center items-center bg-gray-50 p-6  ">
       {/* Confetti Fullscreen with z-index styling */}
       {checkResult == true &&
         windowDimensions.width &&
@@ -126,7 +126,7 @@ const DashboardPage = () => {
           />
         )}
 
-      <Card className="w-full max-w-md p-3 sm:p-6 shadow-md relative z-10  ">
+      <Card className="w-full max-w-md p-3 pt-6 sm:p-6 sm:pt-8 shadow-md relative  ">
         <CardContent>
           <h1 className="text-2xl font-semibold mb-4">
             Hey {userMetadata.name}!

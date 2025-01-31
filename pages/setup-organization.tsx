@@ -84,8 +84,8 @@ const CompanyFormPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen justify-center items-center bg-gray-50 px-6 sm:px-6">
-      <Card className="w-full max-w-md p-3 sm:p-6 shadow-md">
+    <div className="flex min-h-screen justify-center items-center bg-gray-50 p-6">
+      <Card className="w-full max-w-md p-3 pt-6 sm:p-6 sm:pt-8 shadow-md">
         <CardContent>
           <h2 className="text-2xl font-semibold mb-6 text-center">
             Company Details
