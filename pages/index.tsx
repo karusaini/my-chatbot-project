@@ -4,15 +4,15 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-cover bg-center bg-[url('/background.jpg')] flex items-center justify-center p-8">
+    <div className="relative min-h-screen bg-cover bg-center bg-[url('/background.jpg')] flex items-center justify-center p-4 sm:p-8">
       {/* Overlay to darken the background */}
       <div className="absolute inset-0 bg-white/40"></div>
 
       {/* Content Wrapper */}
-      <div className="relative z-10 flex flex-col md:flex-row justify-center gap-12 items-center max-w-7xl w-full p-8 bg-white/80 rounded-2xl">
+      <div className="relative z-10 flex flex-col md:flex-row justify-center items-center gap-12 max-w-7xl w-full p-8 bg-white/80 rounded-2xl">
         {/* Text Content */}
-        <div className="flex flex-1 flex-col items-center justify-center space-y-6">
-          <h1 className="text-3xl font-extrabold text-gray-800 text-center">
+        <div className="flex flex-1 flex-col items-center justify-center md:items-start md:text-left space-y-6">
+          <h1 className="text-2xl sm:text-3xl font-bold sm:font-extrabold text-gray-800 text-center md:text-left">
             AI-Powered Chatbot Builder for Company Data
           </h1>
           <div className="flex md:hidden justify-center ">
@@ -24,7 +24,7 @@ export default function Home() {
               className="rounded-2xl  border-2 transform hover:scale-105 transition duration-500 ease-in-out"
             />
           </div>
-          <p className="text-md sm:text-sm text-gray-600 leading-relaxed text-center">
+          <p className="text-md sm:text-sm text-gray-600 leading-relaxed text-center md:text-left">
             Transform your company information and website content into an
             intelligent AI chatbot with our powerful platform. Simply provide
             your company details and webpage links, and let our system
