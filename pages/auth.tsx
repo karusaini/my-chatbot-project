@@ -112,7 +112,7 @@ const AuthPage = () => {
         description: "Welcome! Please complete your registration.",
         variant: "default",
       });
-      router.push("/complete-registration");
+      router.push("/setup-organization");
     }
     setLoading(false); // Reset loading state after submission
   };

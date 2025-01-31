@@ -57,16 +57,16 @@ const DashboardPage = () => {
     router.push("/auth"); // Redirect to the auth page after sign-out
   };
 
-  // Generate iframe code
-  const iframeCode = (user: any) => `
-        <iframe id="${user.id}" src="http://localhost:3000/chatbot"
-          width="100%" height="100%"
-          style="border: none; position: fixed; bottom: 20px; right: 20px; z-index: 9999;"
-        ></iframe>
-      `;
+  // Generate embed code
+  const embedCode = (user: User | null) => `<script
+  src="http://localhost:3000/chatbot-widget.js"
+  data-chatbot-id="${user?.id}"
+  data-company-name="${user?.user_metadata?.company_name}">
+</script>
+`;
 
   const handleCopy = async () => {
-    navigator.clipboard.writeText(iframeCode(user)).then(() => {
+    navigator.clipboard.writeText(embedCode(user)).then(() => {
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
     });
@@ -151,7 +151,7 @@ const DashboardPage = () => {
                   <div className="flex items-center space-x-4">
                     <textarea
                       readOnly
-                      value={iframeCode(user)}
+                      value={embedCode(user)}
                       rows={4}
                       className="w-full p-2 border rounded-md"
                     />
@@ -161,7 +161,7 @@ const DashboardPage = () => {
                   </div>
                   <div>
                     <strong>Step 2:</strong> Paste the code into your site's
-                    HTML, or wherever the iframe should be placed.
+                    HTML, or wherever the embed should be placed.
                   </div>
                   <div>
                     <strong>Step 3:</strong> Done! The chatbot widget should
@@ -209,11 +209,11 @@ const DashboardPage = () => {
                     <p>Here are some troubleshooting steps:</p>
                     <ul className="list-disc pl-5">
                       <li>
-                        Ensure the iframe code is placed correctly in your
-                        site's HTML.
+                        Ensure the embed code is placed correctly in your site's
+                        HTML.
                       </li>
                       <li>
-                        Make sure the chatbot iframe ID matches the user ID.
+                        Make sure the chatbot embed ID matches the user ID.
                       </li>
                       <li>
                         Check if there are any errors in the browser console.
