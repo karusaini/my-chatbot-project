@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="relative min-h-screen bg-cover bg-center bg-[url('/background.jpg')] flex items-center justify-center p-8">
       {/* Overlay to darken the background */}
-      <div className="absolute inset-0 bg-black/40"></div>
+      <div className="absolute inset-0 bg-white/40"></div>
 
       {/* Content Wrapper */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-7xl w-full p-8 bg-white/80 rounded-2xl shadow-2xl">
