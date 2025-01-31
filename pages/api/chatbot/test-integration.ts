@@ -2,9 +2,10 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 import * as cheerio from "cheerio";
 
-async function checkElementExists(
+async function checkScriptExists(
   url: string,
-  elementId: string
+  scriptSrc: string,
+  chatbotId: string
 ): Promise<boolean> {
   try {
     const response = await axios.get(url, {
@@ -16,9 +17,14 @@ async function checkElementExists(
     const html = response.data;
     const $ = cheerio.load(html);
 
-    return $(`#${elementId}`).length > 0;
+    // Look for a script tag with the specific src and data-chatbot-id
+    const scriptExists =
+      $(`script[src="${scriptSrc}"][data-chatbot-id="${chatbotId}"]`).length >
+      0;
+
+    return scriptExists;
   } catch (error) {
-    console.error("Error checking element:", error);
+    console.error("Error checking script:", error);
     return false;
   }
 }
@@ -27,10 +33,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  let { url, id } = req.body;
+  let {
+    url,
+    scriptSrc = "http://localhost:3000/chatbot-widget.js",
+    chatbotId,
+  } = req.body;
 
   try {
-    let result = await checkElementExists(url, id);
+    let result = await checkScriptExists(url, scriptSrc, chatbotId);
     return res.status(200).json({ success: result });
   } catch (error) {
     console.log(error);

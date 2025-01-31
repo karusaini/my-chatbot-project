@@ -54,6 +54,7 @@
 
   // Create chatbot button
   const chatbotButton = document.createElement("button");
+  chatbotButton.id = chatbotId;
   chatbotButton.textContent = "💬";
   chatbotButton.style.cssText = `
             position: fixed;

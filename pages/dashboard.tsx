@@ -46,13 +46,22 @@ const DashboardPage = () => {
     checkAuth();
   }, [router]);
 
+  useEffect(() => {
+    if (!openTestDialog) {
+      setLoading(false);
+      setCheckResult(null);
+    }
+  }, [openTestDialog]);
+
   if (!userMetadata) return <div>Loading...</div>;
 
   // Generate embed code
   const embedCode = (user: User | null) => `<script
   src="http://localhost:3000/chatbot-widget.js"
   data-chatbot-id="${user?.id}"
-  data-company-name="${user?.user_metadata?.company_name}">
+  data-company-name="${user?.user_metadata?.company_name}"
+  data-company-description="${user?.user_metadata?.company_description}"
+  >
 </script>
 `;
 
@@ -68,11 +77,11 @@ const DashboardPage = () => {
     setCheckResult(null); // Reset check result before testing
 
     const url = userMetadata.company_url;
-    const id = user?.id as string;
+    const chatbotId = user?.id as string;
 
     const result = await axios.post("/api/chatbot/test-integration", {
       url,
-      id,
+      chatbotId,
     });
     setCheckResult(result.data?.success);
     setLoading(false);
@@ -225,7 +234,7 @@ const DashboardPage = () => {
             </Dialog>
 
             <Link href="/sign-out">
-              <Button variant="destructive" className="ml-32">
+              <Button variant="destructive" className="ml-32 mt-4">
                 Sign Out
               </Button>
             </Link>
